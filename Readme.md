@@ -883,6 +883,87 @@ first = S, third = A
 ```
 
 **Словари**
+![изображение](https://user-images.githubusercontent.com/116806816/203225929-064f66f1-239a-45d3-8cf6-46c443e204cc.png)
 
-
+Извлечение по несуществуюшему ключу выдаст ошибку, но можно приментить метод `get`.
+```python
+>>> print(D.get('spam'))
+None
+>>> D.get('spam', 16) # 16 то что выдаст пуе если не найдет значение по ключу 'spam'
+16
+>>> D.get('name') # ну если ключ есть, то выдаст значение по ключу
+'Bob'
+ ```
  
+ Обычная конкатенация вызовет ошибку, но можно использовать медот `update`
+ ```python
+>>> D2 = {'eggs':3, 'toaste':4}
+>>> D+D2
+TypeError: unsupported operand type(s) for +: 'dict' and 'dict'
+>>> D.update(D2)
+>>> D
+{'name': 'Bob', 'age': 40, 'eggs': 3, 'toaste': 4}
+```
+
+Метод `pop` удаляет ключ из словаря возвращаязначение по ключу
+```python
+>>> D.pop('age')
+40
+>>> D
+{'name': 'Bob', 'eggs': 3, 'toaste': 4}
+>>> D.pop('horse', 'No horse') # можно указать что вернуть если ключ не будет найденю
+'No horse'
+```
+Далее словарь отображает названия на годы, но если нам нудно найти ключ по значению, например хотим узнать фильм для 1975 года, можно использовать такой метод:
+```python
+>>> table
+{'Holly Grail': '1975', 'Life of Brian': '1979', 'The Meaning of Life': '1983'}
+>>> list(table.items())
+[('Holly Grail', '1975'), ('Life of Brian', '1979'), ('The Meaning of Life', '1983')]
+>>> [title for (title, year) in table.items() if year == '1975']
+['Holly Grail']
+```
+или еще проще:
+```python
+>>> [key for key in table.keys() if table[key] == '1975']
+['Holly Grail']
+```
+но что если не один кулюч имеет такое значение? ататааааа
+
+**Словари это отображения а не последовательности**
+
+Ключами могут быть любые неизменяемые объекты даже кортежи.
+```python
+>>> Matrix = {}
+>>> Matrix[(2,3,4)] = 88
+>>> Matrix[(7,8,9)] = 99
+>>> x,y,z = 2,3,4
+>>> Matrix[(x,y,z)]
+88
+>>> Matrix
+{(2, 3, 4): 88, (7, 8, 9): 99}
+```
+**Избегание ошибок с отстутствующими ключами**
+
+**1. оператором if**
+```python
+if (2,3,4) in Matrix:
+    print(Matrix[(2,3,4)])
+else:
+    print(0)
+```
+**2. Оператором try**
+```python
+try:
+    print(Matrix[(2,3,6)])
+except KeyError:
+    print(0)
+```
+**3. Словарным методом `get`**
+```python
+Matrix.get((2,3,4),0)
+```
+
+
+
+
