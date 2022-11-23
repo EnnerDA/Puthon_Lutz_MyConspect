@@ -1116,18 +1116,43 @@ Rec(name='Bob', age=40.5, jobs=['dev', 'mgr'])
  
  Элементарный пример работы с файлами
  ```python
- >>> myfile = open('file_proba.txt', 'w')
- >>> myfile.write('hello text file\n')
-16
->>> myfile.write('goodbay text file\n')
+ >>> myfile = open('file_proba.txt', 'w') # Открытие файла создание/очистка
+ >>> myfile.write('hello text file\n') # запись строки
+16                                     # Питон возвращает количество записанных символов
+>>> myfile.write('goodbay text file\n') # Ещё строка
 18
->>> myfile.close()
+>>> myfile.close() #Закрытие фала - сброс выходных буферов на диск.
 
->>> myfile = open('file_proba.txt')
+>>> myfile = open('file_proba.txt')  # Открытие файла r принимается по умолчанию
 >>> myfile.readline()
 'hello text file\n'
 >>> myfile.readline()
 'goodbay text file\n'
 >>> myfile.readline()
-''
+''                                  # пустая строка - конец файла.
  ```
+
+ ```python
+ >>> open('file_proba.txt').read() # чтение сразу всего файла в строковый объект
+'hello text file\ngoodbay text file\n'
+>>> print(open('file_proba.txt').read()) # дружественное пользователю отображение
+hello text file
+goodbay text file
+```
+
+ Использование файловых итераторов
+ ``` python
+ >>> for line in open('file_proba.txt'):
+	print(line, end = '')
+
+	
+hello text file
+goodbay text file
+ ```
+ Дл\я указания пути файла уместно использовать неформатированые строки `r`, например: 
+ 
+ `open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.txt')`
+ 
+
+ 
+ 
