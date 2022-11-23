@@ -1155,6 +1155,7 @@ goodbay text file
  `open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.txt')`
  
 Файлы в действии. Запишем в файл разные типы данных:
+
 ```python
 >>> x,y,z = 43,44,45
 >>> s = 'spam'
@@ -1162,15 +1163,96 @@ goodbay text file
 >>> l = [1,2,3,4]
 >>> F = open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.txt', 'w')
 >>> F.write(s + '\n')
-5
->>> F.write('%s, %s, %s'%(x,y,z))
-10
 >>> F.write('%s, %s, %s\n'%(x,y,z))
-11
 >>> F.write(str(l) + '$' + str(d) + '\n')
-30
 >>> F.close()
 ```
-	
+Посмотрим что получилось:
+```python
+chars = open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.txt').read()
+```
+А теперь достанем это:
+```python
+ >>> F = open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.txt')
+>>> line = F.readline() #чтение одной строки
+>>> line
+'spam\n'
+>>> line.strip()
+'spam'
+>>> line = F.readline() #чтение следующей строки
+>>> line
+'43, 44, 45\n'
+[int(part) for part in line.split(',')] #strip не обязателен так как int игнорирует \n
+[43, 44, 45]
+>>> line = F.readline() #чтение 3ей строки
+>>> line
+"[1, 2, 3, 4]${'a': 1, 'b': 2}\n"
+>>> parts = line.split('$')
+>>> parts
+['[1, 2, 3, 4]', "{'a': 1, 'b': 2}\n"]
+  ```
+  Используем `eval` — встроенную функцию, которая трактует строку как порцию исполняемого программного кода (формально как строку, содержащую выражение Python).
+  
+  ```python
+>>> eval(parts[0])
+[1, 2, 3, 4]
+>>> objects = [eval(P) for P in parts]
+>>> print(objects[0], type(objects[0]))
+[1, 2, 3, 4] <class 'list'>
+>>> print(objects[1], type(objects[1]))
+{'a': 1, 'b': 2} <class 'dict'>
+  ```
+Конечным результатом всего разбора и преобразования является список нормальных объектов Python, а не строк, теперь мы можем применять к ним списковые и словарные операции в своем сценарии.
+  
+  Модуль pickle является более развитым инструментом, который позволяет сохранять почти любой объект Python в файл напрямую, не требуя с нашей стороны каких-либо преобразований в и из строки.	
+```python
+  >>> D = {'a':1, 'b':2}
+>>> F = open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.pk1', 'wb')
+>>> import pickle
+>>> pickle.dump(D, F)
+>>> F.close()
+>>> F = open(r'C:\Users\1\Desktop\Проект\Питухон\myfile.pk1', 'rb')
+>>> E = pickle.load(F)
+>>> E
+{'a': 1, 'b': 2}
+```
+  
+**JSON** популярный формат. обрабатывается стандартным модулем json
+
+ ```python
+ >>> rec # просто обычный dict
+{'name': {'first': 'Bob', 'last': 'Smith'}, 'job': ['dev', 'mgr'], 'age': 40.5}
+>>> import json
+>>> json.dumps(rec) # представление json
+'{"name": {"first": "Bob", "last": "Smith"}, "job": ["dev", "mgr"], "age": 40.5}'
+>>> json.dump(rec, fp=open(r'C:\Users\1\Desktop\Проект\Питухон\json.txt', 'w'), indent =4)
+>>> p = json.load(open(r'C:\Users\1\Desktop\Проект\Питухон\json.txt'))
+>>> p
+{'name': {'first': 'Bob', 'last': 'Smith'}, 'job': ['dev', 'mgr'], 'age': 40.5}
+ ```
+  
+**Итоговая сводка по типам в Python**
  
+Объекты последовательностей — строки, списки и кортежи — разделяют операции над последовательностями, такие как конкатенация, определение длины и индексация.
+
+  ![изображение](https://user-images.githubusercontent.com/116806816/203540217-8abf29cd-a318-42a2-9cac-9c900b20d0ba.png)
  
+* Операция == проверяет эквивалентность значений. Python выполняет проверку	эквивалентности, рекурсивно сравнивая все вложенные объекты. 	
+* Операция is проверяет идентичность объектов. Python проверяет, являются ли два объекта на самом деле одним и тем же объектом (т.е. располагаются по тому же самому адресу в памяти).	
+
+**Смысл понятий "истина" и "ложь"**
+  ```
+>>> False == 0
+True
+  ```
+  ![изображение](https://user-images.githubusercontent.com/116806816/203546657-450e5c30-7cfa-4c15-81ec-53cdd2696351.png)
+
+Т.е. число не равное 0 это True, остальные типы равны True пока они не пусты.  например если x - строка, то проверка `if x:` равносильна `if x != ''`.
+  
+**Типы данных в Python**
+  
+  ![изображение](https://user-images.githubusercontent.com/116806816/203548966-4e2d4bda-52e7-48f7-81b1-130f041d13c9.png)
+  
+  ![изображение](https://user-images.githubusercontent.com/116806816/203549106-391615b4-adae-4fd8-9475-613666b92f89.png)
+
+  
