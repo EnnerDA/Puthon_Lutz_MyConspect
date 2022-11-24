@@ -1255,4 +1255,64 @@ True
   
   ![изображение](https://user-images.githubusercontent.com/116806816/203549106-391615b4-adae-4fd8-9475-613666b92f89.png)
 
+  #Часть III. Операторы и синтаксис.
   
+  ## Глава 10. Введение в операторы в Python.
+
+![изображение](https://user-images.githubusercontent.com/116806816/203705531-478b33ab-82d8-499b-99a8-3e8679d2b084.png)
+
+Все состовные операторы Python соблюдают общий синтаксический шаблон:
+```Строка заголовка :
+       Вложенный блок операторов
+```
+Делай отступы, не будь Си подобным програмистом.
+
+Пример классического кода:
+```python
+while True:
+	r = input('Write some: ')
+	if r == 'stop': break #в одну строку!!!
+	print(int(r)**2)
+print('Bay')
+```
+Строковый метод isdigit() возвращает True , если все символы в строке str являются цифрами и есть хотя бы один символ (строка является не пустой и не состоит из пробелов), в противном случае False. 
+
+Предугадаем ошибки в нашем коде:
+```python
+while True:
+        r = input('Write some: ')
+        if r == 'stop':
+                break
+        elif r.isdigit():
+                print(int(r)**2)
+        else:
+                print('bad!')
+print('Bay!')
+```
+Оператор `try`. Python сначала выполняет часть `try`, после чего либо часть `except` (если исключение произошло), либо часть `else` (если исключений не было).
+```python
+while True:
+        r = input('Write some: ')
+        if r == 'stop':
+                break
+        try:
+                num = int(r)
+        except:
+                print('bad! '*10)
+        else:
+                print(num**2)
+print('Bay!')
+```
+Ну и рефакторинг этого всего:
+```python
+while True:
+        r = input('Write some: ')
+        if r == 'stop': break
+        try:
+                print(float(r)**2)
+        except:
+                print('bad! '*10)
+print('Bay!')
+```
+
+
