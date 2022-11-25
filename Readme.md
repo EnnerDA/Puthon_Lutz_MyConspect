@@ -1488,3 +1488,7 @@ else:
 
 ПОДУМАЙ ВНИМАТЕЛЬНО
 `A = ((X and Y) or Z)`
+
+`[x for x in L if x]`
+
+## Глава 13. Циклы `while` и `for`
