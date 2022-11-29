@@ -1685,6 +1685,28 @@ for key in D: print(key, D[key])```
   
   ## Глава 15. Документация.
   
-  
-	
-	
+`#` подходит для комментирования строк или небольшой группы операторов, но не более того.
+
+`dir()` можно вызвать и без аргументов, он покажет переменные в зоне видимости.
+
+`b = [x for x in dir(str) if x[:2] != '__']` посмотреть все методы `str` которые не начинаются с `__`
+
+**`__doc__`** запрос документации. Например:
+```pyrhon
+>>> print(print.__doc__)
+print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+Prints the values to a stream, or to sys.stdout by default.
+Optional keyword arguments:
+file:  a file-like object (stream); defaults to the current sys.stdout.
+sep:   string inserted between values, default a space.
+end:   string appended after the last value, default a newline.
+flush: whether to forcibly flush the stream.
+```
+Полный результат получим если напишем `help(print)`
+Чтобы извлечь строку документации метода из класса внутри модуля, понадобится просто указать путь к классу: 
+
+`модуль.класс.метод.__doc__`	
+`% c:\code> python -m pydoc -b` Ну у меня не запустился встроеный браузер. Не уверен что он вообще нужен.
+
+
