@@ -1961,3 +1961,6 @@ TypeError: f() missing 1 required keyword-only argument: 'c'
 1 (2, 3, 4, 5) 6 {'x': 7, 'y': 8}
 ```
 
+## Глава 19. Расширенные возможности функций.
+  
+	
