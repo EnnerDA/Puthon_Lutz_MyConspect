@@ -2123,4 +2123,29 @@ print(*(x.upper() for x in 'spam'))
 S P A M
 ```
   Мы используем `*` в функции `print` для получения всех значений из генератора.
-  
+  Функция перемещывания 
+  ```python
+def scrmble2(seq):
+    for i in range(len(seq)):
+        yield seq[i:] + seq[:i]
+ss = scrmble2('spam')
+next(ss)
+'spam'
+next(ss)
+'pams'
+next(ss)
+'amsp'
+```
+Тоже но генераторным выражением
+```python
+>>> s = 'spam'
+>>> g = (s[1:]+s[:1] for i in range(len(s)))
+```
+
+Что бы обобщить генераторное выражение для произвольной функции запишем его через лямбду
+```python
+>>> F = lambda s: (s[i:]+s[:i] for i in range(len(s)))
+>>> list(F('hamp'))
+['hamp', 'amph', 'mpha', 'pham']
+```
+
