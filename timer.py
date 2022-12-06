@@ -1,5 +1,5 @@
 import time, sys
-timer = time.time
+timer = time.perf_counter
 def total(reps, func, *pargs, **kargs):
     '''Сумарное время выполнения функции func() reps раз.
         Возвращает суммарное время и последний результат'''
