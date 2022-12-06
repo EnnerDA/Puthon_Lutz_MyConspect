@@ -26,7 +26,7 @@ def bestof(reps, func, *pargs, **kargs):
         
     print(f'\tFrom {func.__name__} in {reps} reps:')
     if len(str(ret)) < 60:
-        print(f'besttime = {besttime}, \nbedtime = {bedtime}, \nresult = {ret}')
+        print(f'besttime = {besttime}, \nbedtime = {bedtime}, \nresult = {ret[1]}')
     else:
         print(f'''besttime = {besttime} \nbedtime = {bedtime} \nto many symbols to write the result...''')
     
