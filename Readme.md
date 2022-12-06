@@ -2177,3 +2177,21 @@ next(ss)
 ```
 Переменные присвоенные во включениях локальны и не конфликтуют с внешними именами.
 
+## Глав 21. Оценочные испытания.
+  
+[timer.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/timer.py)
+  
+ ```pyton
+>>> from timer import * 
+>>> bestoftotal(500, 100000, lambda x: (str(x).upper())*2, 'spam')
+	From total in 500 reps:
+besttime = 0.031000137329101562, 
+bedtime = 0.0820002555847168, 
+result = SPAMSPAM
+>>> bestoftotal(500, 100000, lambda x: (str(x).upper())*20, 'spam')
+	From total in 500 reps:
+besttime = 0.03400087356567383 
+bedtime = 0.10500264167785645 
+to many symbols to write the result...
+```
+  
