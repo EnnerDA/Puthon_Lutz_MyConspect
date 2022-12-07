@@ -94,6 +94,7 @@ def factor(y):
 ```python
 def factor2(y):
     res = next((x for x in range(y//2,0,-1) if not y%x))
-    print(f'{y} has factor {res}')
+    if res != 1: print(f'{y} has factor {res}')
+    else: print(y, 'is prime')
  ```
  
