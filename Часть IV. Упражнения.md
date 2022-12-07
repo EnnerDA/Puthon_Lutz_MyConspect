@@ -3,7 +3,8 @@
 
 **Упражнение 2**`def adder(x,y): return x+y`
 
-**Упражнение 3**```python
+**Упражнение 3** 
+```python
 def adder(*args):
     res = 0
     for arg in args:
