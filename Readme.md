@@ -2194,4 +2194,71 @@ besttime = 0.03400087356567383
 bedtime = 0.10500264167785645 
 to many symbols to write the result...
 ```
-  
+Для импорта нашего модуля если он находится не в папке с исполняемым файлом проделаем следующие шаги.
+В словаре `sys.path` перечислены все каталоги в которых Python ищет модули, просто добавим туда наш скромный каталог.
+```python
+import sys
+file_dir = r'C:\Users\1\Desktop\Проект\Питухон\Марк Лутц'
+>>> sys.path.append(file_dir)
+>>> print(sys.path)
+['', 'C:\\Users\\1\\AppData\\Local\\Programs\\Python\\Python38\\Lib\\idlelib', 'C:\\Users\\1\\AppData\\Local\\Programs\\Python\\Python38\\python38.zip', 'C:\\Users\\1\\AppData\\Local\\Programs\\Python\\Python38\\DLLs', 'C:\\Users\\1\\AppData\\Local\\Programs\\Python\\Python38\\lib', 'C:\\Users\\1\\AppData\\Local\\Programs\\Python\\Python38', 'C:\\Users\\1\\AppData\\Local\\Programs\\Python\\Python38\\lib\\site-packages', 'C:\\Users\\1\\Desktop\\Проект\\Питухон\\Марк Лутц']
+>>> from timer import *
+``` 
+Теперь всё ок!
+Сравним немного скорости функций
+```python
+>>> listrange = list(range(-100,100))
+>>> def myf(f, s):
+>>> 	res = []
+>>> 	for x in s:
+>>> 		res.append(f(x))
+>>> 	return res
+>>> # Для цикла for
+>>> bestoftotal(100,100,myf,abs,listrange)
+	From total in 100 reps:
+besttime = 0.019344466999427823 
+bedtime = 0.03217773300002591 
+to many symbols to write the result...
+>>> # Для встроенной функции map
+>>> bestoftotal(100,1000,map,abs,listrange)
+	From total in 100 reps:
+besttime = 0.0001675079993219697 
+bedtime = 0.0008631990003777901 
+to many symbols to write the result...
+>>> # Для спискового включения
+>>> def myf2(f, seq):
+	return [f(x) for x in seq]
+>>> bestoftotal(100,1000,myf2,abs,listrange)
+	From total in 100 reps:
+besttime = 0.011920216999897093 
+bedtime = 0.0213391719998981 
+to many symbols to write the result...
+```
+Вывод:
+`for` - 0.019 сек.
+Списковое включение - 0.011
+`map` - 0.00016
+Результат ошеломляющий, возможно я где то что то не учел, но знаете ли факт пока что таков - `map` максимально быстрая.
+
+Можно еще так скорость мерить
+```python
+import timeit
+>>> min(timeit.repeat(stmt = '[x**2 for x in range(1000)]', number =1000))
+0.3184484250014066
+>>> min(timeit.repeat(stmt = 'map(lambda x:x**2, range(1000))', number =1000))
+0.0009669299997767666
+>>> min(timeit.repeat(stmt = 'for x in range(1000): x**2', number =1000))
+0.29934917299942754
+>>> min(timeit.repeat(stmt = 'res = []\nfor x in range(1000): res.append(x**2)', number =1000))
+0.380432750998807
+```
+Упражени 4:
+```python
+def adder(good = 4, bad = 5, ugly = 50, **args):
+    res = good + bad + ugly
+    for val in args:
+        res += args[val]
+    return res
+ ```
+[Упражнения Части 6](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%20IV.%20%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.md)
+
