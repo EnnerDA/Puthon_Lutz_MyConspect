@@ -2252,13 +2252,6 @@ import timeit
 >>> min(timeit.repeat(stmt = 'res = []\nfor x in range(1000): res.append(x**2)', number =1000))
 0.380432750998807
 ```
-Упражени 4:
-```python
-def adder(good = 4, bad = 5, ugly = 50, **args):
-    res = good + bad + ugly
-    for val in args:
-        res += args[val]
-    return res
- ```
+
 [Упражнения Части 6](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A7%D0%B0%D1%81%D1%82%D1%8C%20IV.%20%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.md)
 
