@@ -80,7 +80,8 @@ f6(1)
 f6(1, 3, 4)
 ```
 **Упражнение 8**
-```def factor(y):
+```python
+def factor(y):
     x = y//2
     while x>1:
         if not y%x:
