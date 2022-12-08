@@ -97,4 +97,98 @@ def factor2(y):
     if res != 1: print(f'{y} has factor {res}')
     else: print(y, 'is prime')
  ```
- 
+**Упражнение 9**
+```python
+import math
+>>> list(map(math.sqrt, [2,4,9,16,25]))
+[1.4142135623730951, 2.0, 3.0, 4.0, 5.0]
+>>> [math.sqrt(x) for x in [2,4,9,16,25]]
+[1.4142135623730951, 2.0, 3.0, 4.0, 5.0]
+>>> list(math.sqrt(x) for x in [2,4,9,16,25])
+[1.4142135623730951, 2.0, 3.0, 4.0, 5.0]
+```
+**Упражнение 10**
+```python
+>>> import sys, math
+>>> sys.path.append(r'C:\Users\1\Desktop\Проект\Питухон\Марк Лутц')
+>>> from timer import *
+
+>>> bestoftotal(10000,10000, (math.sqrt), 100)
+	From total in 10000 reps:
+besttime = 0.0017007470000862668, 
+bedtime = 0.02317085300001054, 
+result = 10.0
+>>> bestoftotal(10000,10000, (lambda x: x**0.5), 100)
+	From total in 10000 reps:
+besttime = 0.003287867999915761, 
+bedtime = 0.08048238200012747, 
+result = 10.0
+>>> bestoftotal(10000,10000,pow, 100, 0.5)
+	From total in 10000 reps:
+besttime = 0.002729627000007895, 
+bedtime = 0.34011286499980997, 
+result = 10.0
+```
+Вывод, если нужен кореньквадратный в невероятно большом количестве, то лучше использовать `sqrt` из модуля `math`.
+
+**Упражнение 11**
+```python
+>>> def contdown(x):
+	if x:
+		print(x, end = ' ')
+		return contdown(x-1)
+	else: print('STOP')
+
+>>> contdown(5)
+5 4 3 2 1 STOP
+```
+Если через генератор, то можно так:
+```python
+>>> f = lambda x:(i if i else 'stop' for i in range(x,-1,-1))
+>>> s = f(10)
+>>> list(s)
+[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 'stop']
+>>> s = f(5)
+>>> for i in s: print(i, end = ' ')
+5 4 3 2 1 stop 
+```
+**Упражнение 12**
+```python
+from timer import *
+from functools import reduce
+import math
+
+def fact1(n):
+    if n: return n*fact1(n-1)
+    else: return 1
+
+def fact2(x):
+    return reduce(lambda x,y: x*y, list(range(x,0,-1)))
+
+def fact3(x):
+    y = 1
+    for i in range(x,0,-1):
+        y *= i
+    return y
+
+def fact4(x): return math.factorial(x)
+```
+Замерим:
+```python
+>>> bestoftotal(1000, 10000, fact1, 10)
+besttime = 0.01587743199999636, 
+result = 3628800
+
+>>> bestoftotal(1000, 10000, fact2, 10)
+besttime = 0.02191875100000118, 
+result = 3628800
+
+>>> bestoftotal(1000, 10000, fact3, 10)
+besttime = 0.010534739000007676, 
+result = 3628800
+
+>>> bestoftotal(1000, 10000, fact4, 10)
+besttime = 0.00225055800001428, 
+result = 3628800
+```
+
