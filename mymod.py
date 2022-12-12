@@ -3,10 +3,9 @@ def countLines(file_name):
     print('There are', res, 'lines in', file_name)
 
 def countChars(file_name):
-    res = 0
-    for line in open(r''+file_name).readlines():
-        res += len(line)
+    res = len(open(r''+file_name).read())
     print('There are', res, 'chars in', file_name)
+    
     
 def tester():
     # вставить возможность подхватывать код из командной строки, мать её
@@ -24,9 +23,3 @@ def tester():
 
 if __name__ == '__main__':
     tester()
-    
-            
-            
-
-
-
