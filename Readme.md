@@ -2357,8 +2357,27 @@ anyfile
 
 [formats.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/formats.py)
   
-  
+[mydir.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/mydir.py)
 
+Нельзя импортировать что-либо в формате str. Ну например `import 'xy'` выдаст ошибку. Но если мы получаем имя необходимого нам модуля в виде строки, то вот каковы наши действия:
+```python
+modname = 'xy'
+exec('import' + modname)
+```
+или 
+```python
+modname = 'xy'
+xy = __import__(modname)
+```
+ну или 
+```python
+imoprt imortlib
+modname = 'xy'
+xy = importlib.import_module(modname)
+```
+
+[reloadall.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/reloadall.py)
+
+
+ 
   
-        
-	
