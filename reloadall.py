@@ -20,6 +20,8 @@ def reload_all(*args):
     for arg in args:
         if str(type(arg)) == "<class 'module'>":
             transitive_reload(arg,visited)
+            
+
 if __name__ == '__main__':
 
     def tester(reloader, modname):
