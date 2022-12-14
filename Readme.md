@@ -76,4 +76,35 @@ Current value="abcxyz"
 ```
 Если опустить метод перегрузки операции и не наследовать его от суперкласса, тогда соответствующая операция для экземпляров поддерживаться не будет.
 
-
+Метод `.__bases__` для определения суперкласса
+```python
+ThirdClass.__bases__
+(<class '__main__.SecondClass'>,)
+```
+Метод `__dict__` для получения перечня атрибутов
+```python
+[name for name in FirstClass.__dict__ if name[:2]!='__']
+['setdata', 'display']
+```
+Метод `__class__` для определения к какому классу принадлежит экземпляр
+```python
+x.__class__
+<class '__main__.FirstClass'>
+```
+Присваиваем стороннюю функцию как атрибут модуля
+```python
+>>> class A: pass
+>>> A.name = 'aaa'
+>>> b = A()
+>>> b.name
+'aaa'
+>>> def nameupper(obj): return obj.name.upper()
+>>> nameupper(b)
+'AAA'
+>>> b.name
+'aaa'
+>>> A.nameupper = nameupper
+>>> b.nameupper()
+'AAA'
+```
+## Глава 28. Более реалистичный пример.
