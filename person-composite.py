@@ -18,6 +18,8 @@ class Manager:
     def giveRaise(self, percent, bonus = .1): # перехватить и делегировать
         self.person.giveRaise(percent + bonus)
     def __getattr__(self, attr): # делегировать остальные аргументы
+        """Далее когда мы будем вызывать экземпляр Manager с неизвестным пока атрибутом,
+        эта функция будет выискивать этот атрибут в self.person, который является Person"""
         return getattr(self.person, attr)
     def __repr__(self):
         return str(self.person)
