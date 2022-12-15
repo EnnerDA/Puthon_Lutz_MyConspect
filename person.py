@@ -13,6 +13,8 @@ class Person:
         #return '*'*20 + f'\nName: {self.name.split()[0]} \nLast name: {self.name.split()[1]} \n'+ '*'*20
 
 class Manager(Person):
+    def __init__(self, name, pay):
+        Person.__init__(self, name, 'mgr', pay) #job заполняется автоматически
     def giveRaise(self, percent, bonus = .1):
         Person.giveRaise(self, percent + bonus)
 
@@ -28,7 +30,7 @@ if __name__ == '__main__':
     print(sue)
     print(bob)
     # Создаём Manager
-    tom = Manager('Tom Jones', 'mgr', 50000)
+    tom = Manager('Tom Jones', 50000)
     tom.giveRaise(.1)
     print(tom.lastName())
     print(tom)
