@@ -224,6 +224,8 @@ Bob Smith => [Person: job = None, name = Bob Smith, pay = 0]
 Sue Jones => [Person: job = dev, name = Sue Jones, pay = 100000]
 Tom Jones => [Manager: job = mgr, name = Tom Jones, pay = 50000]
 ```
+[финальная версия person.py] (https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/person2.py)
+
 **Обновление объектов в хранилище `shelve`**
 ```python
 import shelve
