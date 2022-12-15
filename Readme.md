@@ -161,7 +161,84 @@ class Manager(Person):
 Более явное и осязаемое внедрение. Применяется и наследование и композиция.
 [person-department.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/person-department.py)
 
-А какие атрибуты ку класса на основе которого получен экземпляр `z`
+А какие атрибуты у класса на основе которого получен экземпляр `z`
 ```python
 [key for key in z.__class__.__base__.__dict__ if key[:2] != '__']
 ```
+ну или так:
+```
+>>> tom.__dict__.keys() # атрибуты только экземпляра
+dict_keys(['name', 'job', 'pay'])
+>>> dir(tom) # плюс унаследованные атрибуты в классах
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'giveRaise', 'job', 'lastName', 'name', 'pay']
+```
+Чуть побаловался с выводом
+```python
+def __repr__(self):
+    res = ''
+    for key in self.__dict__.keys():
+        res += key + ' = ' + str(self.__dict__[key]) + ', '            
+    return '[%s: %s]'%(self.__class__.__name__, res[:-2]) 
+```
+
+**Модули `pickle`, `dbm` и `shelve`**
+
+Создаём базу данных на `shelve`
+```python
+from person import Person, Manager
+
+bob = Person('Bob Smith')
+sue = Person('Sue Jones', job = 'dev', pay = 100000)
+tom = Manager('Tom Jones', 50000)
+
+import shelve
+
+db = shelve.open('persondb')
+for obj in (bob, sue, tom):
+    db[obj.name] = obj
+db.close()
+```
+Просмотр сохраненного
+```python
+>>> import glob
+>>> glob.glob('person*')
+['person-composite.py', 'person-department.py', 'person.py', 'person2.py', 'persondb.bak', 'persondb.dat', 'persondb.dir']
+>>> print(open('persondb.dir').read())
+'Bob Smith', (0, 81)
+'Sue Jones', (512, 93)
+'Tom Jones', (1024, 92)
+```
+```python
+>>> db = shelve.open('persondb')
+>>> len(db)
+3
+>>> list(db)
+['Bob Smith', 'Sue Jones', 'Tom Jones']
+>>> bob = db['Bob Smith']
+>>> bob.lastName()
+'Smith'
+>>> for key in db:
+	print(key, '=>', db[key])
+	
+Bob Smith => [Person: job = None, name = Bob Smith, pay = 0]
+Sue Jones => [Person: job = dev, name = Sue Jones, pay = 100000]
+Tom Jones => [Manager: job = mgr, name = Tom Jones, pay = 50000]
+```
+**Обновление объектов в хранилище `shelve`**
+```python
+import shelve
+
+db = shelve.open('persondb')
+for key in sorted(db):
+    print(key, '=>', db[key])
+
+sue = db['Sue Jones']
+sue.giveRaise(.1)
+db['Sue Jones'] = sue
+db.close()
+```
+И хоть из командной строки меняй
+![изображение](https://user-images.githubusercontent.com/116806816/207864466-56ec5d84-96c7-444a-b6ec-44408900a32a.png)
+
+## Глава 29. Детали реализации классов.
+
