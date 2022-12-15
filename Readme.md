@@ -157,3 +157,11 @@ class Manager(Person):
 
 А теперь то же но через `__getattr__` называют делегированием
 [person-composite.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/person-composite.py)
+
+Более явное и осязаемое внедрение. Применяется и наследование и композиция.
+[person-department.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/person-department.py)
+
+А какие атрибуты ку класса на основе которого получен экземпляр `z`
+```python
+[key for key in z.__class__.__base__.__dict__ if key[:2] != '__']
+```
