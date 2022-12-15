@@ -155,3 +155,5 @@ class Manager(Person):
 ```
 Тут работает схема **`экземпляр.метод(аргументы) = класс.метод(экземпляр, аргументы)`**
 
+А теперь то же но через `__getattr__` называют делегированием
+[person-composite.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/person-composite.py)
