@@ -265,7 +265,7 @@ db.close()
 123
 ```
 **Методики связывания классов**
-``python
+```python
 class Super:
     def method(self):
         print('in Super.method')
@@ -285,7 +285,7 @@ class Extender(Super):
         print('Original Extender.method end')
 
 class Provider(Super):
-    def action(self):
+    def action(self): # почти круто!!!
         print('in Provider.action')
 
 # Самотест
@@ -295,5 +295,21 @@ if __name__ == '__main__':
         klass().method() # после класса (), почему не понял, но без них не работает
     print('\n'+'*'*5, 'Provider')
     x = Provider()
-    x.deligate() # круто!!!
+    x.deligate() #а вот теперь true круто!!!
 ```
+Super - *асбтрактный суперкласс* для Provider. Т.е. он ожидает от своих подклассов предоставления частей своего поведения.
+
+Для определения дерева классов
+```pyhon
+class C(A,B): pass
+>>> C.__base__
+<class '__main__.A'>
+>>> C.__bases__
+(<class '__main__.A'>, <class '__main__.B'>)
+>>> b = B()
+>>> b.__class__
+<class '__main__.B'>
+>>> b.__class__.__name__
+'B'
+```
+## Глава 30. Перегрузка операций.
