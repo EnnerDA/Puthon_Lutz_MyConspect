@@ -245,3 +245,55 @@ db.close()
 
 ## Глава 29. Детали реализации классов.
 
+Помни, классы это поиск атрибутов в дереве объектов с учетом иерархии. Ну и особый первй аргумент, конечно же, но сейчас не о нем.
+``` python
+>>>class A:     # создаём класс
+    a1 = 'spam' # с атрибутом
+>>>class B(A):  # подкласс
+    b1 = 'eggs' # со своим атрибутом
+ >>>b=B()       # экземпляр подкласса
+ >>>b.a1        # наследует атрибут суперкласса
+'spam'
+>>> A.c1 = 'ham' # тепрь присваиваем новый атрибут суперклассу 
+>>> b.c1         # экземпляр подкласса без проблем находит его в дереве объектов
+'ham'
+>>> b.d1 = 'prum' # тепрь присваиваем новый атрибут экземпляру подкласса
+>>> A.d1 = 123    # и новый атрибут суперклассу с тем же именем
+>>> b.d1         # по иерархии присвоенный экземпляру атрибут находится раньше чем то что присвоенно в суперклассе
+'prum'
+>>> B.d1        # а от подкласс будет наследовать от суперкласса, ибо присвоение атрибуту случилось за его пределами
+123
+```
+**Методики связывания классов**
+``python
+class Super:
+    def method(self):
+        print('in Super.method')
+    def deligate(self):
+        self.action()
+
+class Inheritor(Super): pass
+
+class Replacer(Super):
+    def method(self): # полностью переопределяем метод суперкласса
+        print('in Replaicer.method')
+
+class Extender(Super):
+    def method(self): # дополняем метод суперкласса
+        print('Original Extender.method start')
+        Super.method(self) # с явным вызовом
+        print('Original Extender.method end')
+
+class Provider(Super):
+    def action(self):
+        print('in Provider.action')
+
+# Самотест
+if __name__ == '__main__':
+    for klass in (Inheritor, Replacer, Extender):
+        print('\n'+'*'*5, klass.__name__,'*'*5,)
+        klass().method() # после класса (), почему не понял, но без них не работает
+    print('\n'+'*'*5, 'Provider')
+    x = Provider()
+    x.deligate() # круто!!!
+```
