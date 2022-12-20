@@ -340,6 +340,6 @@ import pickle
 obj = pickle.load(open('shopfile.pkl', 'rb'))
 print(obj.server, obj.chef)
 ```
-Выгрузили объект. Шик!
+Выгрузили объект. Шик! Всё работает!
 
 
