@@ -317,3 +317,29 @@ class C(A,B): pass
  
  ![изображение](https://user-images.githubusercontent.com/116806816/208588711-6cd9a4da-79eb-4454-81a5-f24432bffc9c.png)
  
+## Глава 31. Проектирование с использованием классов.
+
+**Композиция в ООП**
+
+[employees.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/employees.py)
+[pizzashop.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/pizzashop.py)
+
+Классы могут представлять почти любые объекты и отношения, которые удастся выразить с помощью предложения; просто замените имена существительные классами (скажем, Oven), а глаголы методами (например, bake), и вы получите первое приближение к проектному решению.	
+
+Применение `pickle` для сохранения экземпляров 
+```python
+from pizzashop import PizzaShop
+shop = PizzaShop()
+
+import pickle
+pickle.dump(shop, open('shopfile.pkl', 'wb'))
+```
+Сохранили объект!
+```python
+import pickle
+obj = pickle.load(open('shopfile.pkl', 'rb'))
+print(obj.server, obj.chef)
+```
+Выгрузили объект. Шик!
+
+
