@@ -342,4 +342,13 @@ print(obj.server, obj.chef)
 ```
 Выгрузили объект. Шик! Всё работает!
 
-
+Просто дополнили целевой интерфейс объекта
+```python
+class Wrapper:
+    def __init__(self, object):
+        self.wrapped = object
+    def __getattr__(self, attrname):
+        print('Trace:', attrname)
+        return getattr(self.wrapped, attrname)
+```
+Псевдосокрытие имени стр.182
