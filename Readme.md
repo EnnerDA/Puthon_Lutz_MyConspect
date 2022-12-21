@@ -371,3 +371,31 @@ class Wrapper:
 >>> a.a
 11
 ```
+**Фабрики объектов**
+```python
+def fabric(aClass, *pargs, **kargs):
+    return aClass(*pargs, **kargs)
+
+class A:
+    def __init__(self, name, lastname):
+        self.name = name
+        self.lastname = lastname
+    def __str__(self):
+        for k, v in globals().items():
+            if v is self:
+                break
+        return f'{k} from {self.__class__.__name__} class: {self.name} {self.lastname}'
+
+class B: pass
+
+a = fabric(A, 'tom', 'york')
+b = fabric(B)
+c = fabric(str, 123)
+print(f'{a}\n{b}\n{c}')
+# вывод
+a from A class: tom york
+<__main__.B object at 0x0000000002F81040>
+123
+```
+Подмешивание классов удобно если какую-то функцию нужно распространить в большом объеме. Например мы желаем расширить вывод `__str__` ну и напишем отдельный класс, в котором эта функция выглядит так, как нам надо. А далее наследуем его в нужные нам классы. Теперь все выводят `print` как нам хочеться, вот мы и подмешали класс. Класс!
+
