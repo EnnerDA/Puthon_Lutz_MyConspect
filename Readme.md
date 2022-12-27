@@ -460,15 +460,13 @@ ____
 ____
 Слоты наследуются:
 ```python
->>> class A:
-	__slots__ = ['a']
->>> class B(A):
-	__slots__ = ['b']
+>>> class A: __slots__ = ['a']
+>>> class B(A): __slots__ = ['b']
 >>> b = B()
 >>> [atr for atr in dir(b) if atr[:2] != '__']
 ['a', 'b']
 ```
-
+стр. 256
 
 
 
