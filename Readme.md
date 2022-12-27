@@ -430,9 +430,44 @@ x.attr
 
 [mapattrs.py](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/mapattrs.py) Для прослеживания наследования атрибутов.
 
+**`__slots__`**
 
+`__slots__` позволяет ограничить количество атрибутов у экземпляров класса. 
+```python 
+class A:
+    __slots__ = ['age', 'name', 'job']
 
+a = A()
+```
+тепреь мы экземплярам `А` можем присваивать только атриьуты перечисленные в `__slots__`.
+```python
+>>> a.age
+AttributeError: age
+>>> a.age= 40
+>>> a.age
+40
+>>> a.ppp = 12
+AttributeError: 'A' object has no attribute 'ppp'
+```
+____
+* **` .__dict__` вернет собственные атрибуты экземпляра, но не `__slots__`**
 
+* **`dir()` вернет также все унаследованные атрибуты и `__slots__`**
+
+*  **` .__slots__` вернет переменные из `__slots__`**
+
+*  **`getattr(obj, name)` извлечет и dict и slot**
+____
+Слоты наследуются:
+```python
+>>> class A:
+	__slots__ = ['a']
+>>> class B(A):
+	__slots__ = ['b']
+>>> b = B()
+>>> [atr for atr in dir(b) if atr[:2] != '__']
+['a', 'b']
+```
 
 
 
