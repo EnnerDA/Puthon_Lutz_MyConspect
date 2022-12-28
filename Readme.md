@@ -502,7 +502,72 @@ class B:
 			self.__dict__['_age'] = value
 		else: self.__dict__[name] = value
 ```
+**Дескрипторы**
 
+Только пример написан без пояснений как-будто б не понятно
+```python
+>>> class A:
+	def __get__(self, instance, owner): return 40
+	def __set__(self, instance, value): instance._age= value
+>>> class B: age = A()
+	
+>>> x = B()
+>>> x.age
+40
+>>> x.age = 42
+>>> x._age
+42
+```
+**Статические методы** 
+
+если определить в классе метод как статический то затем его можно вызывать и из экземпляра и из метода не передавая собственно экземпляр или класс.
+```python
+class A:
+    i = 0
+    def __init__(self):
+        A.i += 1
+    def print_i(): print(A.i)
+    print_i = staticmethod(print_i)
+
+if __name__ == '__main__':
+    a = A()
+    b = A()
+    a.print_i() # выведет 2
+    A.print_i() # выведет 2
+```
+**Методы класса**
+
+Внимание обратить что в функцию `count` попадает не `self` а класс!
+```python
+class A:
+    i = 0
+    def count(cls):
+        cls.i += 1
+    def __init__(self):
+        self.count()
+    def print_i(cls, e= '\n'):
+        print(cls.i, end = e)
+    count = classmethod(count)
+
+class B(A):
+    i = 0
+    def __init__(self):
+        A.__init__(self)
+
+class C(A):
+    i = 0
+        
+if __name__ == '__main__':
+    a1, a2 = A(), A()
+    b1, b2, b3 = B(), B(), B()
+    c1 = C()
+    a1.print_i(', '), b1.print_i(', '), c1.print_i()
+ 
+ # вывод
+2, 3, 1
+```
+
+    
 
 
 
