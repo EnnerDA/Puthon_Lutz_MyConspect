@@ -626,7 +626,7 @@ class tracer:
         print(f'call {self.calls} to {self.func.__name__}')
         return self.func(*args)
 
-@tracer
+@tracer # то же, что и spam = tracer(spam)
 def spam(a,b,c):
     return a+b+c
 print(spam(1,2,3))
