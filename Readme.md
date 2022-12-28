@@ -614,4 +614,28 @@ if __name__ == '__main__':
 4, 3, 0
 4, 3, 0
 ```
-	
+Напишем лекоратор функций, который считает количество обращений к ним
+```python
+class tracer:
+    """декоратор функций, считает сколько раз обращались к функции"""
+    def __init__(self, func):
+        self.calls = 0
+        self.func = func
+    def __call__(self, *args):
+        self.calls += 1
+        print(f'call {self.calls} to {self.func.__name__}')
+        return self.func(*args)
+
+@tracer
+def spam(a,b,c):
+    return a+b+c
+print(spam(1,2,3))
+print(spam(4,5,6))  
+
+# вывод
+call 1 to spam
+6
+call 2 to spam
+15
+```
+стр.275
