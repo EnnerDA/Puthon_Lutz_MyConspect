@@ -466,7 +466,42 @@ ____
 >>> [atr for atr in dir(b) if atr[:2] != '__']
 ['a', 'b']
 ```
-стр. 256
+В итоге слоты работают чуть быстрее, и вроде полезны для оптимизации памяти, могут ограничить количество атрибутов в экземплярах, но мешают созданию `__dict__`. Лучтц рекомендует их использовать только в крайних случаях.
+
+**Свойства**
+
+Так мы можем изолировать изменение какого-либо атрибута не прибегаю к общей изоляции функциями `setatrr` и `getattr`.
+```python
+class A:
+	def getage(self):return 40
+	def setage(self,value):
+		print('set age: %s'%value)
+		self._age = value
+	age = property(getage, setage, None, None)
+>>> x = A()
+>>> x.age
+40
+>>> x.age =42
+set age: 42
+>>> x.age
+40
+>>> x._age
+42
+```
+Все присвоения `x.age` уходят в переменную `x._age`. Остальные атрибуты работают как обычно. 
+
+Тоже самое через `getattr` `setattr`:
+```python
+class B:
+	def __getattr__(self, name):
+		if name == 'age': return 40
+		else: raise AttributeError(name)
+	def __setattr__(self, name, value):
+		if name == 'age':
+			print('set age:', value)
+			self.__dict__['_age'] = value
+		else: self.__dict__[name] = value
+```
 
 
 
