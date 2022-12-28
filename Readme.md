@@ -470,7 +470,7 @@ ____
 
 **Свойства**
 
-Так мы можем изолировать изменение какого-либо атрибута не прибегаю к общей изоляции функциями `setatrr` и `getattr`.
+Так мы можем изолировать изменение какого-либо атрибута не прибегаю к общей изоляции функциями `__setatrr__` и `__getattr__`.
 ```python
 class A:
 	def getage(self):return 40
@@ -567,10 +567,51 @@ if __name__ == '__main__':
 2, 3, 1
 ```
 
-    
+**Декараторы и метаклассы**
 
-
-
-
-
-
+Декоратор записывается в собственной строке перед оператором `def`.Он состоит из `@` и метафункции, т.е. функции которая управляет другой функцией.
+```
+class C:
+	@staticmethod
+	def meth():
+```
+Равносильно:
+```python
+class C:
+	def meth():
+	...
+	meth = staticmethod
+```
+Вот такой у нас теперь счетчик
+```python
+class A:
+    i = 0
+    def __init__(self):
+        A.i += 1
+    @staticmethod
+    def print_i(e= '\n'):
+        print(A.i, end = e)
+class B(A):
+    i = 0
+    def __init__(self):
+        B.i += 1
+    @staticmethod
+    def print_i(e= '\n'):
+        print(B.i, end = e)
+class C(A):
+    i = 0
+    @staticmethod
+    def print_i(e= '\n'):
+        print(C.i, end = e)
+        
+if __name__ == '__main__':
+    a1, a2, a3 = A(), A(), A()
+    b1, b2, b3 = B(), B(), B()
+    c1 = C()
+    a1.print_i(', '), b1.print_i(', '), c1.print_i()
+    A.print_i(', '), B.print_i(', '), C.print_i()
+# вывод
+4, 3, 0
+4, 3, 0
+```
+	
