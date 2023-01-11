@@ -677,5 +677,10 @@ class C(A):
 
 [Упражнение 1](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/1.md)
 
+[Упражнение 2](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/2.py)
+
+[Упражнение 3](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/3.py)
+
+[Упражнение 4](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/4.py)
 
 
