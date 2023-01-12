@@ -683,4 +683,9 @@ class C(A):
 
 [Упражнение 4](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/4.py)
 
+[Упражнение 7](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/7.py)
 
+[упражнение 9](https://github.com/EnnerDA/Puthon_Lutz_MyConspect/blob/main/%D0%A3%D0%BF%D1%80%D0%B0%D0%B6%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20VI/9.py)
+
+# Часть VII. исключения и инструменты.
+## Глава 33. Основы Исключений
