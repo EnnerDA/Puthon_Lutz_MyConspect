@@ -695,4 +695,19 @@ class C(A):
 * **`raise`** генерирует исключение вручную в коде.
 * **`assert`** генерирует исключение условно в коде.
 * **`with/as`** реализует диспетчеры контекстов, что бы это не значило.
-стр.320
+
+Для формирования собственных исключений воспользуемся наследованием от класса *Exception*.
+```python
+class PidorError(Exception): pass # Пользовательское исключение
+raise PidorError
+```
+Можем расширить:
+```python
+class PidorError(Exception): # Пользовательское исключение
+    def __str__(self): return "I don't have no time for no monkey business"
+
+raise PidorError
+```
+За это расширение спасибо группе Qween и их песне "Living on My Own"
+
+
