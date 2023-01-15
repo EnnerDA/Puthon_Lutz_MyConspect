@@ -799,3 +799,30 @@ with A() as a, B() as b:
 ```
 ## Глава 35. Объекты исключений.
 
+Так как исключения основаны на классах, `except` будет отлавливать не только  класс указанный в нем но и все его подклассы. Суперклассы становятся названием категорий, а подклассы специфическими видами исключений.
+```python
+class General(Exception): pass
+class Specific1(General): pass
+class Specific2(General): pass
+
+def raiser0(): raise General()
+def raiser1(): raise Specific1()
+def raiser2(): raise Specific2()
+
+import sys
+for func in (raiser0, raiser1, raiser2):
+    try:
+        func()
+    except General:
+        print(f'caught: {sys.exc_info()[0:2]}')
+```
+**Дерево исключений**
+`BaseException` самый верхний класс -> 
+
+-> `Exception` суперкласс для большинства исключений кроме событий выхода в систему. Именно от него надо строить пользовательские исключения. 
+
+-> `ArithmeticError` суперкласс для всех численных ошибок. Содержит подклассы: `OvertlowError`, `ZeroDivisionError` и `FloatingPointError` и пр.
+
+-> `LookupError:` суперкласс для ошибок индексирования в последовательностях `IndexError` и `KeyError`.
+  
+-> и т.д.
