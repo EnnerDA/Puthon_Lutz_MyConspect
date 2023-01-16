@@ -830,4 +830,56 @@ for func in (raiser0, raiser1, raiser2):
 
 ## Глава 36. Проектирование с использованием исключений.
 
+Дерево дейсвтий в случае многократного вложения `try` в `try`
+```python
+try:
+    print('Start 1...')
+    try:
+        print('Start 2...')
+        try:
+            print('Start 3...')
+            print('spam'[6])
+        finally: print('Finally 3')
+    finally: print('Finally 2')
+finally: print('Finally 1')
+# вывод
+Start 1...
+Start 2...
+Start 3...
+Finally 3
+Finally 2
+Finally 1
+IndexError: string index out of range
+```
+Опреаторы `finally` выполняться в любом случае, в порядке обратном от их вызова и только после них будет сообщение об исключении.
 
+Типичный подход к тестированию програм:
+```python
+import sys
+log = open('testlog', 'a')
+from testapi import moreTests, runNextTests, testName
+def testdriver():
+    while moreTests():
+        try: runNextTest()
+	except Exception: 
+	    print('FAILED', testName(), sys.exc_info()[:2], file = log)
+	else:
+	    print('PASSED', testName(), file = log)
+testdriver()
+```
+**sys.exc_info()** - кортеж с тремя значениями (type, value, traceback) текущего исключения:
+1. type - класс обрабатываемого исключения
+2. value - экземпляр класса исключенияб который был сгенерирован
+3. tracerback - объект трассировки.
+
+**Тут многоувжаемый Лутц изволил советов по проектированию с использованием `try` нам напихать**
+* Оперции, которые часто терпят неудачу как правило помещают в `try`. Например открытие фалов, обращения к сокетам.
+* Дейсвтия по завершению должны быть реализованы в операторах `try/finally` либо `with/as` если поддержиается диспетчер контекста.
+* Принимайте решение о степени детализации в операторах `try/except` адекватно. Не стоит помещать каждый чих в `try`. Смелей.
+* Избегайте перехвата пустого `except`. Лучше уж `except Exception` взять, а еще лучше быть поконкретнее чем просто `Exception`. 
+
+_______________________________
+>Примите поздравления! На этом ознакомление с основами языка программирования Python завершено.
+>Марк Лутц Том 2, стр. 391 	
+
+________________________________
